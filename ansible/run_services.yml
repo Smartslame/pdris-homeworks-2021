@@ -1,0 +1,26 @@
+---
+- name: Run services
+  hosts: services
+  tasks:
+    - name: upload docker-compose file
+      copy:
+        src=docker-compose-services.yml
+        dest=/edu/iakushkin_AD/docker-compose.yml
+      tags:
+        - up
+    - name: stop services
+      docker_compose:
+        project_src: /edu/iakushkin_AD/
+        files:
+          - docker-compose.yml
+        state: absent
+      tags:
+        - down
+    - name: run services
+      docker_compose:
+        project_src: /edu/iakushkin_AD/
+        files:
+          - docker-compose.yml
+        state: present
+      tags:
+        - up
