@@ -7,25 +7,31 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   eureka:
-    image: pdris-homeworks-2021/eureka:latest
+    image: smartslame/eureka:hw4
     ports:
       - 8080:8761
   currency-service:
-    image: pdris-homeworks-2021/currency-service:latest
+    image: smartslame/currency-service:hw4
     ports:
       - 8081:8080
+    environment:
+      - DB_URL=db
+      - DB_PORT=5432
     depends_on:
       - eureka
       - db
   weather-service:
-    image: pdris-homeworks-2021/weather-service:latest
+    image: smartslame/weather-service:hw4
     ports:
       - 8082:8080
+    environment:
+      - DB_URL=db
+      - DB_PORT=5432
     depends_on:
       - eureka
       - db
   prediction-service:
-    image: pdris-homeworks-2021/prediction-service:latest
+    image: smartslame/prediction-service:hw4
     ports:
       - 8083:8080
     depends_on:
