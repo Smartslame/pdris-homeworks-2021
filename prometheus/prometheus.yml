@@ -1,0 +1,48 @@
+global:
+  scrape_interval: 10s
+  evaluation_interval: 10s
+
+# Load and evaluate rules in this file every 'evaluation_interval' seconds.
+rule_files:
+  - "alert.rules"
+
+# A scrape configuration containing exactly one endpoint to scrape.
+scrape_configs:
+  - job_name: 'node-exporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'node-exporter:9100' ]
+
+  - job_name: 'cadvisor'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'cadvisor:8080' ]
+
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'localhost:9090' ]
+
+  - job_name: 'currency-service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'currency-service:8080' ]
+
+  - job_name: 'weather-service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'weather-service:8080' ]
+
+  - job_name: 'prediction-service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'prediction-service:8080' ]
+
+  - job_name: 'eureka'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'eureka:8761' ]

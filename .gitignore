@@ -10,4 +10,4 @@
 target/
 
 # Postgres data
-postgres-data/
+data/
