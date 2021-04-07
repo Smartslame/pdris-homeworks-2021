@@ -1,39 +1,31 @@
 version: '3.5'
-
 services:
-  db:
-    image: postgres
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
   eureka:
     image: smartslame/eureka:hw4
     ports:
-      - 8080:8761
+      - 60000:8761
   currency-service:
     image: smartslame/currency-service:hw4
     ports:
-      - 8081:8080
+      - 60001:8080
     environment:
-      - DB_URL=db
-      - DB_PORT=5432
+      - DB_URL=194.87.111.112
+      - DB_PORT=55432
     depends_on:
       - eureka
-      - db
   weather-service:
     image: smartslame/weather-service:hw4
     ports:
-      - 8082:8080
+      - 60002:8080
     environment:
-      - DB_URL=db
-      - DB_PORT=5432
+      - DB_URL=194.87.111.112
+      - DB_PORT=55432
     depends_on:
       - eureka
-      - db
   prediction-service:
     image: smartslame/prediction-service:hw4
     ports:
-      - 8083:8080
+      - 60003:8080
     depends_on:
       - eureka
       - currency-service
